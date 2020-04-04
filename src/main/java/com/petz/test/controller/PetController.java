@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.petz.test.domain.Pet;
 import com.petz.test.dto.PetDto;
+import com.petz.test.form.PetForm;
 import com.petz.test.service.PetService;
 import com.sun.istack.NotNull;
 
@@ -42,16 +43,16 @@ public class PetController {
     }
     
     @PostMapping
-    public ResponseEntity<PetDto> create(@RequestBody @Valid Pet user, UriComponentsBuilder uri) {
-    	PetDto petDto = petService.create(user);
+    public ResponseEntity<PetDto> create(@RequestBody @Valid PetForm pet, UriComponentsBuilder uri) {
+    	PetDto petDto = petService.create(new Pet(pet));
     	
     	return ResponseEntity.created(
-    			uri.path("/users/{id}").buildAndExpand(user.getId()).toUri()).body(petDto);
+    			uri.path("/users/{id}").buildAndExpand(petDto.getId()).toUri()).body(petDto);
     }
     
     @PutMapping("/{id}")
-    public void send(@PathVariable Long id, @RequestBody @Valid Pet user) {
-    	petService.update(id, user);
+    public void send(@PathVariable Long id, @RequestBody @Valid Pet pet) {
+    	petService.update(id, pet);
     }
     
 }

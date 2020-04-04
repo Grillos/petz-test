@@ -3,10 +3,14 @@ package com.petz.test.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+
+import com.petz.test.enumaration.TelephoneType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +33,7 @@ public class Telephone implements Serializable {
 	@NotBlank(message = "number cannot be empty")
 	private String number;
 	
+	@Enumerated(EnumType.STRING)
+	private TelephoneType type;
 	
 }

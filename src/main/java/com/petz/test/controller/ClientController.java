@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.petz.test.domain.Client;
 import com.petz.test.dto.ClientDto;
+import com.petz.test.form.ClientForm;
 import com.petz.test.service.ClientService;
 import com.sun.istack.NotNull;
 
@@ -42,11 +43,11 @@ public class ClientController {
     }
     
     @PostMapping
-    public ResponseEntity<ClientDto> create(@RequestBody @Valid Client user, UriComponentsBuilder uri) {
-    	ClientDto clientDto = clientService.create(user);
+    public ResponseEntity<ClientDto> create(@RequestBody @Valid ClientForm clientForm, UriComponentsBuilder uri) {
+    	ClientDto clientDto = clientService.create(new Client(clientForm));
     	
     	return ResponseEntity.created(
-    			uri.path("/users/{id}").buildAndExpand(user.getId()).toUri()).body(clientDto);
+    			uri.path("/users/{id}").buildAndExpand(clientDto.getId()).toUri()).body(clientDto);
     }
     
     @PutMapping("/{id}")
