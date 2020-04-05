@@ -18,7 +18,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage(ClientController.class.getPackageName()))
+				.apis(RequestHandlerSelectors.basePackage("com.petz.test.controller"))
 				.paths(PathSelectors.any())
 				.build();
 	}
